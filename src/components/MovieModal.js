@@ -1,13 +1,10 @@
+/* eslint-disable no-unused-vars */
 import React, { useState, useEffect } from "react";
 import Modal from "react-modal";
 import styled from "styled-components";
 import { GiCrossMark } from "react-icons/gi";
 
 const MovieModal = ({ detail, open, close }) => {
-  useEffect(() => {
-    console.log(detail);
-  }, [detail]);
-
   Modal.setAppElement("#root");
   const [modalIsOpen, setIsOpen] = useState(false);
 
@@ -24,7 +21,8 @@ const MovieModal = ({ detail, open, close }) => {
       border: "none",
       marginRight: "-50%",
       transform: "translate(-50%, -50%)",
-      backgroundColor: "rgba(0, 0, 0, 0.2)",
+      backgroundColor: "rgba(0, 0, 0, 0.5)",
+      borderRadius: "20px",
     },
     overlay: {
       backgroundColor: "rgba(0, 0, 0, 0.8)",
@@ -74,7 +72,12 @@ const CloseModal = styled.button`
   text-decoration: none;
   display: inline-block;
   color: white;
+  transition: color 1s;
   cursor: pointer;
+  :hover {
+    color: red;
+    transition: color 1s;
+  }
 `;
 
 const Container = styled.div`
