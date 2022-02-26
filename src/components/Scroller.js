@@ -9,6 +9,7 @@ function Scroller({ movies, total, type }) {
   const closemodal = () => {
     openmodal(false);
   };
+
   return (
     <Container>
       <CardContainer>
@@ -33,7 +34,7 @@ function Scroller({ movies, total, type }) {
             );
           })}
       </CardContainer>
-      {<MovieModal detail={detail} open={modal} close={closemodal} />}
+      {modal && <MovieModal detail={detail} open={modal} close={closemodal} />}
     </Container>
   );
 }

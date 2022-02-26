@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from "react";
 import Modal from "react-modal";
 import styled from "styled-components";
-import { GiCrossFlare } from "react-icons/gi";
+import { GiCrossMark } from "react-icons/gi";
 
 const MovieModal = ({ detail, open, close }) => {
   useEffect(() => {
     console.log(detail);
-  }, []);
+  }, [detail]);
 
   Modal.setAppElement("#root");
   const [modalIsOpen, setIsOpen] = useState(false);
@@ -34,16 +34,28 @@ const MovieModal = ({ detail, open, close }) => {
     <div>
       <Modal isOpen={open} onRequestClose={closeModal} style={customStyles}>
         <CloseModal onClick={close}>
-          <GiCrossFlare />
+          <GiCrossMark />
         </CloseModal>
         <Container>
-          <Poster>
-            <img
-              src={`https://image.tmdb.org/t/p/original/${detail.poster_path}`}
-              alt="Poster"
-            />
-          </Poster>
-          <Releasedate>{detail.release_date}</Releasedate>
+          <Top>
+            {detail.poster_path && (
+              <img
+                src={`https://image.tmdb.org/t/p/original/${detail.poster_path}`}
+                alt="Poster"
+              />
+            )}
+
+            <Detail>
+              {detail.release_date && (
+                <Releasedate>Released Date: {detail.release_date}</Releasedate>
+              )}
+              {detail.vote_average && (
+                <Rating>Rating: {detail.vote_average}</Rating>
+              )}
+            </Detail>
+          </Top>
+          <Title>{detail.original_title}</Title>
+
           <Overview>{detail.overview}</Overview>
         </Container>
       </Modal>
@@ -69,19 +81,37 @@ const Container = styled.div`
   margin: 10px;
 `;
 
-const Poster = styled.div`
+const Top = styled.div`
   display: flex;
 
   img {
     width: 160px;
     height: 250px;
     border-radius: 10px;
+    margin-right: 20px;
   }
 `;
+
+const Title = styled.div`
+  font-size: 25px;
+  padding: 10px 0 0 10px;
+  font-weight: 800;
+  letter-spacing: 1.5px;
+`;
+
 const Releasedate = styled.div`
+  margin-bottom: 10px;
+`;
+
+const Detail = styled.div`
   display: flex;
   flex-direction: column;
 `;
+
+const Rating = styled.div`
+  margin-bottom: 10px;
+`;
+
 const Overview = styled.div`
   display: flex;
   line-height: 1.4;
