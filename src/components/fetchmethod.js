@@ -53,15 +53,9 @@ const fetchpopularmovies = (page) => {
 
     get(MOVIES(page))
       .then((response) => {
-        console.log(response);
         popularmovies = response.data.data.results;
-        total_pages = response.data.total_pages;
-        total_results = response.data.total_results;
-        console.log(
-          response.data.data.total_pages,
-          " | ",
-          response.data.data.total_results
-        );
+        total_pages = 20;
+        total_results = 9500;
       })
       .then(() => {
         if (total_results === 0) {
@@ -79,11 +73,9 @@ const fetchpopularmovies = (page) => {
         } else {
           getAll(Array.from({ length: total_pages }, (_, i) => MOVIES(i + 1)))
             .then((results) => {
-              console.log(results);
-
               popularmovies = [];
               results.forEach((result) => {
-                popularmovies = [...popularmovies, ...result.data];
+                popularmovies = [...popularmovies, ...result.data.data.results];
               });
             })
             .then(() => {

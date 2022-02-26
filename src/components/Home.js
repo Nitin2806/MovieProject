@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
-import { fetchmovie } from "./fetchmethod";
+import { fetchmovie, fetchpopularmovies } from "./fetchmethod";
 import Scroller from "./Scroller";
 
 const Home = () => {
@@ -16,8 +16,9 @@ const Home = () => {
 
   useEffect(() => {
     isLoading(true);
-    fetchmovie().then((movie) => {
+    fetchpopularmovies().then((movie) => {
       setpopularmovie(movie);
+      console.log(movie.results);
       setfilteredmovie(movie.results);
       const filteryears = [
         ...new Set(movie.results.map((Val) => Val.release_date.slice(0, 4))),
@@ -66,8 +67,8 @@ const Home = () => {
           <Scroller
             movies={filteredmovie}
             total={{
-              results: popularmovie.total_results,
-              pages: popularmovie.total_pages,
+              results: 9500,
+              pages: 500,
             }}
             type="movie"
           />
