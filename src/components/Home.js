@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from "react";
-import styled, { keyframes } from "styled-components";
+import styled from "styled-components";
 import { fetchmovie } from "./fetchmethod";
 import Scroller from "./Scroller";
 
 const Home = () => {
   const [popularmovie, setpopularmovie] = useState([]);
+  const [filteredmovie, setfilteredmovie] = useState([]);
   const [filteryear, setfilteryear] = useState([]);
   const [Loading, isLoading] = useState(true);
 
@@ -17,25 +18,24 @@ const Home = () => {
     isLoading(true);
     fetchmovie().then((movie) => {
       setpopularmovie(movie);
-      const Data = popularmovie.results;
+      setfilteredmovie(movie.results);
       const filteryears = [
-        ...new Set(Data.map((Val) => Val.release_date.slice(0, 4))),
+        ...new Set(movie.results.map((Val) => Val.release_date.slice(0, 4))),
       ];
       setfilteryear(filteryears);
       isLoading(false);
     });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const filtermovies = ({ Val }) => {
     isLoading(true);
     console.log(Val);
-    const Data = popularmovie.results;
-    const newItem = Data.filter((newVal) => {
+    let newItem = popularmovie.results.filter((newVal) => {
       return newVal.release_date.slice(0, 4) === Val;
     });
     console.log(newItem);
-    setpopularmovie(newItem);
+    setfilteredmovie(newItem);
+    newItem = null;
     isLoading(false);
   };
 
@@ -49,7 +49,7 @@ const Home = () => {
         <Container>
           <FilterOption>
             Filter By Year:
-            {filteryear.map((Val, id) => {
+            {filteryear?.map((Val, id) => {
               return (
                 <Filter
                   key={id}
@@ -64,7 +64,7 @@ const Home = () => {
             })}
           </FilterOption>
           <Scroller
-            movies={popularmovie.results}
+            movies={filteredmovie}
             total={{
               results: popularmovie.total_results,
               pages: popularmovie.total_pages,
