@@ -18,7 +18,7 @@ const Home = () => {
     isLoading(true);
     fetchpopularmovies().then((movie) => {
       setpopularmovie(movie);
-      console.log(movie.results);
+      // console.log(movie.results);
       setfilteredmovie(movie.results);
       const filteryears = [
         ...new Set(movie.results.map((Val) => Val.release_date.slice(0, 4))),
@@ -30,11 +30,11 @@ const Home = () => {
 
   const filtermovies = ({ Val }) => {
     isLoading(true);
-    console.log(Val);
+    // console.log(Val);
     let newItem = popularmovie.results.filter((newVal) => {
       return newVal.release_date.slice(0, 4) === Val;
     });
-    console.log(newItem);
+    // console.log(newItem);
     setfilteredmovie(newItem);
     newItem = null;
     isLoading(false);

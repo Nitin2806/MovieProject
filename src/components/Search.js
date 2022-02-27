@@ -37,7 +37,7 @@ const Search = () => {
       }
       let data = await search(query);
       let { results } = data.data;
-      console.log("Result  ", data.data.results);
+      //   console.log("Result  ", data.data.results);
 
       if (!results) {
         setEmpty();
@@ -54,7 +54,7 @@ const Search = () => {
     return () => clearTimeout(timeout);
   }, [search_q]);
 
-  console.log("Query", search_q);
+  //   console.log("Query", search_q);
 
   const changeHandler = (e) => {
     e.preventDefault();
@@ -62,7 +62,7 @@ const Search = () => {
     setSearch(e.target.value);
   };
 
-  console.log("Search Result", movies);
+  //   console.log("Search Result", movies);
   return (
     <Container>
       <SearchBar>
