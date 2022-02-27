@@ -33,6 +33,9 @@ const getAll = (urls) => {
 const MOVIES = (page) =>
   `https://movie-task.vercel.app/api/popular?page=${page}`;
 
+const SEARCH = (query) =>
+  `https://movie-task.vercel.app/api/search?page=1&query=${query}`;
+
 const fetchmovie = () => {
   return new Promise((resolve, reject) => {
     get(MOVIES())
@@ -42,6 +45,22 @@ const fetchmovie = () => {
       .catch((err) => {
         reject(err);
       });
+  });
+};
+
+const search = (query) => {
+  return new Promise((resolve, reject) => {
+    (async () => {
+      try {
+        let res = await get(SEARCH(query));
+        if (res.status !== 200) {
+          reject([]);
+        }
+        resolve(res.data);
+      } catch (err) {
+        console.log(err);
+      }
+    })();
   });
 };
 
@@ -90,4 +109,4 @@ const fetchpopularmovies = (page) => {
   });
 };
 
-export { fetchmovie, fetchpopularmovies };
+export { fetchmovie, fetchpopularmovies, search };

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
-import { fetchmovie, fetchpopularmovies } from "./fetchmethod";
+import { fetchpopularmovies } from "./fetchmethod";
 import Scroller from "./Scroller";
 
 const Home = () => {
@@ -83,6 +83,7 @@ export default Home;
 const Container = styled.main`
   min-height: calc(100vh - 65px);
   margin-bottom: 20px;
+  margin-top: 60px;
   position: relative;
   overflow-y: hidden;
   overflow-x: hidden;
