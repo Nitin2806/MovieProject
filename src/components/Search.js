@@ -1,10 +1,16 @@
 import React, { useEffect, useState, useRef } from "react";
 import styled from "styled-components";
 import { search } from "./fetchmethod";
+import MovieModal from "./MovieModal";
 const Search = () => {
   const inputRef = useRef();
   const [search_q, setSearch] = useState("");
   const [movies, setMovies] = useState([]);
+  const [modal, openmodal] = useState(false);
+  const [detail, mdetail] = useState();
+  const closemodal = () => {
+    openmodal(false);
+  };
 
   useEffect(() => {
     if (search_q === "") {
@@ -74,7 +80,13 @@ const Search = () => {
       <Results>
         {movies.map((data) => {
           return (
-            <Data>
+            <Data
+              key={data.id}
+              onClick={() => {
+                openmodal(true);
+                mdetail(data);
+              }}
+            >
               <Poster
                 src={`https://image.tmdb.org/t/p/original/${data.poster_path}`}
                 alt="Poster"
@@ -84,6 +96,7 @@ const Search = () => {
           );
         })}
       </Results>
+      {modal && <MovieModal detail={detail} open={modal} close={closemodal} />}
     </Container>
   );
 };
@@ -109,15 +122,21 @@ const Results = styled.div`
   margin: 10px;
   display: flex;
   flex-direction: column;
+  user-select: none;
 `;
 
 const Data = styled.div`
   border: 1px solid silver;
   display: flex;
+  cursor: pointer;
   flex-direction: row;
+  user-select: none;
   border-radius: 10px;
   width: 50%;
   align-self: center;
+  :hover {
+    background-color: rgba(0, 0, 0, 0.5);
+  }
 `;
 const Title = styled.div`
   margin: 50px 0 10px 10px;
