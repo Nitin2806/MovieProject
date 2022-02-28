@@ -38,7 +38,7 @@ const MovieModal = ({ detail, open, close }) => {
           <Top>
             {detail.poster_path && (
               <img
-                src={`https://image.tmdb.org/t/p/original/${detail.poster_path}`}
+                src={`https://image.tmdb.org/t/p/w500/${detail.poster_path}`}
                 alt="Poster"
               />
             )}
@@ -82,6 +82,7 @@ const CloseModal = styled.button`
 
 const Container = styled.div`
   margin: 10px;
+  user-select: none;
 `;
 
 const Top = styled.div`

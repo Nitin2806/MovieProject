@@ -88,7 +88,7 @@ const Search = () => {
               }}
             >
               <Poster
-                src={`https://image.tmdb.org/t/p/original/${data.poster_path}`}
+                src={`https://image.tmdb.org/t/p/w185/${data.poster_path}`}
                 alt="Poster"
               ></Poster>
               <Title>{data.original_title}</Title>

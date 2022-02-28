@@ -87,6 +87,7 @@ const Container = styled.main`
   position: relative;
   overflow-y: hidden;
   overflow-x: hidden;
+  user-select: none;
   @media (max-width: 724px) {
     padding: 10px calc(3.5vw + 5px);
   }

@@ -27,7 +27,7 @@ function Scroller({ movies, total, type }) {
                   title={type === "movie" ? movie.title : movie.name}
                   rating={movie.vote_average}
                   key={movie.id}
-                  src={`https://image.tmdb.org/t/p/original/${movie.poster_path}`}
+                  src={`https://image.tmdb.org/t/p/w185/${movie.poster_path}`}
                   hover={true}
                 />
               </Card>
