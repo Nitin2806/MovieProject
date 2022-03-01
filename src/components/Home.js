@@ -7,6 +7,8 @@ const Home = () => {
   const [popularmovie, setpopularmovie] = useState([]);
   const [filteredmovie, setfilteredmovie] = useState([]);
   const [filteryear, setfilteryear] = useState([]);
+  const [vote, setvote] = useState([]);
+
   const [Loading, isLoading] = useState(true);
 
   useEffect(() => {
@@ -24,9 +26,15 @@ const Home = () => {
         ...new Set(movie.results.map((Val) => Val.release_date.slice(0, 4))),
       ];
       setfilteryear(filteryears);
+
+      const vote_average = [
+        ...new Set(movie.results.map((Val) => Val.vote_average)),
+      ];
+      setvote(vote_average);
       isLoading(false);
     });
   }, []);
+  // console.log(vote.sort());
 
   const filtermovies = ({ Val }) => {
     isLoading(true);
@@ -35,6 +43,17 @@ const Home = () => {
       return newVal.release_date.slice(0, 4) === Val;
     });
     // console.log(newItem);
+    setfilteredmovie(newItem);
+    newItem = null;
+    isLoading(false);
+  };
+  const average = ({ Val }) => {
+    isLoading(true);
+    // console.log(Val);
+    let newItem = popularmovie.results.filter((newVal) => {
+      return newVal.vote_average === Val;
+    });
+
     setfilteredmovie(newItem);
     newItem = null;
     isLoading(false);
@@ -60,6 +79,22 @@ const Home = () => {
                 >
                   {" "}
                   {Val}{" "}
+                </Filter>
+              );
+            })}
+          </FilterOption>
+
+          <FilterOption>
+            Filter By vote:
+            {vote?.map((Val, id) => {
+              return (
+                <Filter
+                  key={id}
+                  onClick={() => {
+                    average({ Val });
+                  }}
+                >
+                  {Val}
                 </Filter>
               );
             })}
